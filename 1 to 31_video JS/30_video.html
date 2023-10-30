@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const options = ['snake', 'water', 'gun'];
+
+const getComputerChoice = () => {
+  const index = Math.floor(Math.random() * options.length);
+  return options[index];
+};
+
+const getResult = (userChoice, computerChoice) => {
+  if (userChoice === computerChoice) {
+    return 'Tie';
+  } else if (
+    (userChoice === 'snake' && computerChoice === 'gun') ||
+    (userChoice === 'water' && computerChoice === 'snake') ||
+    (userChoice === 'gun' && computerChoice === 'water')
+  ) {
+    return 'Computer';
+  } else {
+    return 'You';
+  }
+};
+
+const playGame = () => {
+  rl.question('Make your choice (snake/water/gun): ', userChoice => {
+    userChoice = userChoice.toLowerCase();
+
+    if (options.includes(userChoice)) {
+      const computerChoice = getComputerChoice();
+      console.log(`Computer chose: ${computerChoice}`);
+      console.log(`Result: ${getResult(userChoice, computerChoice)}`);
+    } else {
+      console.log(`Invalid choice. Please try again.`);
+    }
+    playGame();
+  });
+};
+
+console.log('Welcome to the Snake-Water-Gun game!');
+playGame();
+
+    </script>
+</body>
+</html>
